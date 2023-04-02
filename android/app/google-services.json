@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "385554070894",
+    "project_id": "firestore-learning-e2ec6",
+    "storage_bucket": "firestore-learning-e2ec6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385554070894:android:4602f89857091be0b4957f",
+        "android_client_info": {
+          "package_name": "com.timkin.firestore_learning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385554070894-ije2950ip31o9ud237ns1iq6gks4blv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuuGTpwYg2H5NbxvrePydzQG16lT7DADo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385554070894-ije2950ip31o9ud237ns1iq6gks4blv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
