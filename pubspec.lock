@@ -312,6 +312,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "6af43e0948b9f64a812afbb9ac3f76e2c8f5abe4efaba4188702a56af46b98c2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.2"
   graphs:
     dependency: transitive
     description:
@@ -607,4 +615,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=3.0.0-384.0.dev <4.0.0"
-  flutter: ">=1.20.0"
+  flutter: ">=3.3.0"
