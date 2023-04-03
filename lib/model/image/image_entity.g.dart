@@ -8,10 +8,10 @@ part of 'image_entity.dart';
 
 _$_Image _$$_ImageFromJson(Map<String, dynamic> json) => _$_Image(
       name: json['name'] as String,
-      size: json['size'] as int,
+      url: json['url'] as String,
     );
 
 Map<String, dynamic> _$$_ImageToJson(_$_Image instance) => <String, dynamic>{
       'name': instance.name,
-      'size': instance.size,
+      'url': instance.url,
     };

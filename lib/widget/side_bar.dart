@@ -25,7 +25,7 @@ class _SideBarState extends State<SideBar> {
                 onTap: () {
                   var router =
                       context.innerRouterOf<StackRouter>(UsersRoute.name)!;
-                  router.replace(const AllUsersRoute());
+                  router.navigate(const AllUsersRoute());
                 },
               ),
               ListTile(
@@ -34,7 +34,7 @@ class _SideBarState extends State<SideBar> {
                 onTap: () {
                   var router =
                       context.innerRouterOf<StackRouter>(UsersRoute.name)!;
-                  router.replace(const CreateUserRoute());
+                  router.navigate(const CreateUserRoute());
                 },
               ),
             ],

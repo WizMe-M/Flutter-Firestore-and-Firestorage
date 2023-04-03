@@ -8,7 +8,7 @@ part 'image_entity.g.dart';
 class ImageEntity with _$ImageEntity {
   factory ImageEntity({
     required String name,
-    required int size,
+    required String url,
   }) = _Image;
 
   factory ImageEntity.fromJson(Map<String, dynamic> json) => _$ImageEntityFromJson(json);

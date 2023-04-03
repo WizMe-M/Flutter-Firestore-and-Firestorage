@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_learning/model/entity/user_entity.dart';
 import 'package:firestore_learning/model/user/user.dart';
+import 'package:firestore_learning/storages/store.dart';
+import 'package:firestore_learning/storages/user_store.dart';
 import 'package:firestore_learning/routing/app_router.dart';
 import 'package:flutter/material.dart';
 
@@ -13,25 +18,27 @@ class UsersPage extends StatefulWidget {
 }
 
 class _UsersPageState extends State<UsersPage> {
-  final fs = FirebaseFirestore.instance;
+  final Store<UserModel> store = UserStore();
 
-  late CollectionReference<Map<String, dynamic>> userCollection;
   List<QueryDocumentSnapshot<Map<String, dynamic>>> users = [];
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? subscription;
 
-  _UsersPageState() {
-    userCollection = fs.collection('users');
+  Future<void> _initData() async {
+    subscription = store.collection.snapshots().listen((event) {
+      setState(() => users = event.docs);
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    initData();
+    _initData();
   }
 
-  Future<void> initData() async {
-    userCollection.snapshots().listen((event) {
-      setState(() => users = event.docs);
-    });
+  @override
+  void dispose() {
+    subscription?.cancel();
+    super.dispose();
   }
 
   @override
@@ -42,6 +49,13 @@ class _UsersPageState extends State<UsersPage> {
         var id = doc.id;
         var user = User.fromJson(doc.data());
         return ListTile(
+          leading: SizedBox(
+            width: 50,
+            height: 50,
+            child: user.avatar != null
+                ? Image.network(user.avatar!.url)
+                : const Placeholder(),
+          ),
           title: TextButton(
             onPressed: () {
               context.router.navigate(EditUserRoute(id: doc.id, user: user));
@@ -49,47 +63,21 @@ class _UsersPageState extends State<UsersPage> {
             child: Text(user.email),
           ),
           trailing: IconButton(
-            onPressed: () => userCollection.doc(id).delete(),
+            onPressed: () {
+              store.delete(id: id);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('User was deleted'),
+                  duration: Duration(milliseconds: 300),
+                ),
+              );
+            },
             icon: const Icon(Icons.delete),
           ),
         );
       },
       separatorBuilder: (context, index) => const Divider(),
       itemCount: users.length,
-    );
-  }
-}
-
-class UserItem extends StatelessWidget {
-  const UserItem({required this.id, required this.user, super.key});
-
-  final String id;
-  final User user;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: TextButton(
-              onPressed: () {
-                context.router.navigate(EditUserRoute(id: id, user: user));
-              },
-              child: Text(user.email),
-            ),
-          ),
-          const Spacer(),
-          IconButton(
-            onPressed: () {
-              FirebaseFirestore.instance.collection('users').doc(id).delete();
-            },
-            icon: const Icon(Icons.delete),
-          ),
-        ],
-      ),
     );
   }
 }

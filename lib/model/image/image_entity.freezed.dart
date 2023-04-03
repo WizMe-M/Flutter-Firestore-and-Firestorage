@@ -21,7 +21,7 @@ ImageEntity _$ImageEntityFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ImageEntity {
   String get name => throw _privateConstructorUsedError;
-  int get size => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $ImageEntityCopyWith<$Res> {
           ImageEntity value, $Res Function(ImageEntity) then) =
       _$ImageEntityCopyWithImpl<$Res, ImageEntity>;
   @useResult
-  $Res call({String name, int size});
+  $Res call({String name, String url});
 }
 
 /// @nodoc
@@ -52,17 +52,17 @@ class _$ImageEntityCopyWithImpl<$Res, $Val extends ImageEntity>
   @override
   $Res call({
     Object? name = null,
-    Object? size = null,
+    Object? url = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      size: null == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
-              as int,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -73,7 +73,7 @@ abstract class _$$_ImageCopyWith<$Res> implements $ImageEntityCopyWith<$Res> {
       __$$_ImageCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, int size});
+  $Res call({String name, String url});
 }
 
 /// @nodoc
@@ -87,17 +87,17 @@ class __$$_ImageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? size = null,
+    Object? url = null,
   }) {
     return _then(_$_Image(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      size: null == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
-              as int,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -105,7 +105,7 @@ class __$$_ImageCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Image implements _Image {
-  _$_Image({required this.name, required this.size});
+  _$_Image({required this.name, required this.url});
 
   factory _$_Image.fromJson(Map<String, dynamic> json) =>
       _$$_ImageFromJson(json);
@@ -113,11 +113,11 @@ class _$_Image implements _Image {
   @override
   final String name;
   @override
-  final int size;
+  final String url;
 
   @override
   String toString() {
-    return 'ImageEntity(name: $name, size: $size)';
+    return 'ImageEntity(name: $name, url: $url)';
   }
 
   @override
@@ -126,12 +126,12 @@ class _$_Image implements _Image {
         (other.runtimeType == runtimeType &&
             other is _$_Image &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.size, size) || other.size == size));
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, size);
+  int get hashCode => Object.hash(runtimeType, name, url);
 
   @JsonKey(ignore: true)
   @override
@@ -148,7 +148,7 @@ class _$_Image implements _Image {
 }
 
 abstract class _Image implements ImageEntity {
-  factory _Image({required final String name, required final int size}) =
+  factory _Image({required final String name, required final String url}) =
       _$_Image;
 
   factory _Image.fromJson(Map<String, dynamic> json) = _$_Image.fromJson;
@@ -156,7 +156,7 @@ abstract class _Image implements ImageEntity {
   @override
   String get name;
   @override
-  int get size;
+  String get url;
   @override
   @JsonKey(ignore: true)
   _$$_ImageCopyWith<_$_Image> get copyWith =>
