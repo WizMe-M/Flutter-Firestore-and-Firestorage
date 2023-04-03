@@ -24,6 +24,8 @@ mixin _$User {
   set email(String value) => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   set password(String value) => throw _privateConstructorUsedError;
+  ImageEntity? get avatar => throw _privateConstructorUsedError;
+  set avatar(ImageEntity? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,9 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String email, String password});
+  $Res call({String email, String password, ImageEntity? avatar});
+
+  $ImageEntityCopyWith<$Res>? get avatar;
 }
 
 /// @nodoc
@@ -53,6 +57,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? avatar = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -63,7 +68,23 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as ImageEntity?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ImageEntityCopyWith<$Res>? get avatar {
+    if (_value.avatar == null) {
+      return null;
+    }
+
+    return $ImageEntityCopyWith<$Res>(_value.avatar!, (value) {
+      return _then(_value.copyWith(avatar: value) as $Val);
+    });
   }
 }
 
@@ -73,7 +94,10 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String password});
+  $Res call({String email, String password, ImageEntity? avatar});
+
+  @override
+  $ImageEntityCopyWith<$Res>? get avatar;
 }
 
 /// @nodoc
@@ -87,6 +111,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   $Res call({
     Object? email = null,
     Object? password = null,
+    Object? avatar = freezed,
   }) {
     return _then(_$_User(
       email: null == email
@@ -97,14 +122,19 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: freezed == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as ImageEntity?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_User implements _User {
-  _$_User({required this.email, required this.password});
+  _$_User({required this.email, required this.password, this.avatar});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -112,10 +142,12 @@ class _$_User implements _User {
   String email;
   @override
   String password;
+  @override
+  ImageEntity? avatar;
 
   @override
   String toString() {
-    return 'User(email: $email, password: $password)';
+    return 'User(email: $email, password: $password, avatar: $avatar)';
   }
 
   @JsonKey(ignore: true)
@@ -133,7 +165,10 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  factory _User({required String email, required String password}) = _$_User;
+  factory _User(
+      {required String email,
+      required String password,
+      ImageEntity? avatar}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -143,6 +178,9 @@ abstract class _User implements User {
   @override
   String get password;
   set password(String value);
+  @override
+  ImageEntity? get avatar;
+  set avatar(ImageEntity? value);
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
