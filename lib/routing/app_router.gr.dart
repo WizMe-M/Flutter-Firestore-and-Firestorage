@@ -20,6 +20,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CreateUserPage(),
       );
     },
+    EditUserRoute.name: (routeData) {
+      final args = routeData.argsAs<EditUserRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EditUserPage(
+          id: args.id,
+          user: args.user,
+          key: args.key,
+        ),
+      );
+    },
     AllUsersRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -47,6 +58,49 @@ class CreateUserRoute extends PageRouteInfo<void> {
   static const String name = 'CreateUserRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EditUserPage]
+class EditUserRoute extends PageRouteInfo<EditUserRouteArgs> {
+  EditUserRoute({
+    required String id,
+    required User user,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          EditUserRoute.name,
+          args: EditUserRouteArgs(
+            id: id,
+            user: user,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'EditUserRoute';
+
+  static const PageInfo<EditUserRouteArgs> page =
+      PageInfo<EditUserRouteArgs>(name);
+}
+
+class EditUserRouteArgs {
+  const EditUserRouteArgs({
+    required this.id,
+    required this.user,
+    this.key,
+  });
+
+  final String id;
+
+  final User user;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'EditUserRouteArgs{id: $id, user: $user, key: $key}';
+  }
 }
 
 /// generated route for

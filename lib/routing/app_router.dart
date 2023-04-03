@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firestore_learning/model/user/user.dart';
+import 'package:firestore_learning/widget/screen/users/edit_user_page.dart';
 import 'package:firestore_learning/widget/screen/users_screen.dart';
 import 'package:firestore_learning/widget/screen/users/create_user_page.dart';
 import 'package:firestore_learning/widget/screen/users/users_page.dart';
@@ -29,6 +31,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           path: 'create',
           page: CreateUserRoute.page,
+        ),
+        AutoRoute(
+          path: 'edit',
+          page: EditUserRoute.page,
         ),
       ],
     ),

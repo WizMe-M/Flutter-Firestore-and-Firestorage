@@ -1,17 +1,26 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_learning/model/user/user.dart';
 import 'package:firestore_learning/widget/util/dynamic_auth_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class RegUserWidget extends StatefulWidget {
-  const RegUserWidget({Key? key}) : super(key: key);
+@RoutePage()
+class EditUserPage extends StatefulWidget {
+  const EditUserPage({
+    required this.id,
+    required this.user,
+    super.key,
+  });
+
+  final String id;
+  final User user;
 
   @override
-  State<RegUserWidget> createState() => _RegUserWidgetState();
+  State<EditUserPage> createState() => _EditUserPageState();
 }
 
-class _RegUserWidgetState extends State<RegUserWidget> {
+class _EditUserPageState extends State<EditUserPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
@@ -20,13 +29,20 @@ class _RegUserWidgetState extends State<RegUserWidget> {
   bool isPasswordHidden = true;
 
   @override
+  void initState() {
+    super.initState();
+    _email.text = widget.user.email;
+    _password.text = widget.user.password;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Expanded(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
@@ -54,8 +70,21 @@ class _RegUserWidgetState extends State<RegUserWidget> {
                 child: SizedBox(
                   width: 200,
                   child: ElevatedButton(
-                    onPressed: () => addUserToStore(),
-                    child: const Text('Add user'),
+                    onPressed: () {
+                      editUser();
+                      context.router.back();
+                    },
+                    child: const Text('Save changes'),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () => context.router.back(),
+                    child: const Text('Back'),
                   ),
                 ),
               ),
@@ -66,16 +95,21 @@ class _RegUserWidgetState extends State<RegUserWidget> {
     );
   }
 
-  void addUserToStore() {
-    var user = User(email: _email.text, password: _password.text);
-    fs.collection('users').add(user.toJson()).then((DocumentReference dr) {
-      if (kDebugMode) {
-        print('Added document with ID ${dr.id}');
-      }
-    });
-  }
-
   void togglePassword() {
     setState(() => isPasswordHidden = !isPasswordHidden);
+  }
+
+  Future<void> editUser() async {
+    var user = User(email: _email.text, password: _password.text);
+    fs.collection('users').doc(widget.id).update(user.toJson()).then((value) {
+      if (kDebugMode) {
+        print('Doc with ID ${widget.id} was updated');
+      }
+    });
+    var updatedDoc = await fs.collection('users').doc(widget.id).get();
+    var updated = User.fromJson(updatedDoc.data()!);
+    widget.user
+      ..email = updated.email
+      ..password = updated.password;
   }
 }
