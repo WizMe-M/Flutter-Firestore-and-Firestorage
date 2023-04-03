@@ -14,32 +14,31 @@ class _SideBarState extends State<SideBar> {
   Widget build(BuildContext context) {
     return Drawer(
       child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () {
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('All users'),
+                onTap: () {
                   var router =
                       context.innerRouterOf<StackRouter>(UsersRoute.name)!;
                   router.replace(const AllUsersRoute());
                 },
-                child: const Text('All users'),
               ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () {
+              ListTile(
+                leading: const Icon(Icons.add),
+                title: const Text('Create new user'),
+                onTap: () {
                   var router =
                       context.innerRouterOf<StackRouter>(UsersRoute.name)!;
                   router.replace(const CreateUserRoute());
                 },
-                child: const Text('Create user'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -106,10 +106,5 @@ class _EditUserPageState extends State<EditUserPage> {
         print('Doc with ID ${widget.id} was updated');
       }
     });
-    var updatedDoc = await fs.collection('users').doc(widget.id).get();
-    var updated = User.fromJson(updatedDoc.data()!);
-    widget.user
-      ..email = updated.email
-      ..password = updated.password;
   }
 }
